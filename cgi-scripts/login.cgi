@@ -3,11 +3,15 @@ echo "Content-type: text/html"
 echo ""
 
 decoded=$(printf '%b' "${QUERY_STRING//%/\\x}")
-if [ -n "$decoded" ]; then
+if [ -n "$decoded" ] && [[ $decoded =~ username=(.*)\&password=(.*) ]]; then
+  username="${BASH_REMATCH[1]}"
+  password="${BASH_REMATCH[2]}"
+  echo "it is a match with $username and $password"
+
   cat <<EOT
   <html><body>
-    <h1>Secret</h1>
-    My password is 1234
+    <h1>Profile of $username</h1>
+    Your password is "$password"
   </body></html>
 EOT
 else
@@ -23,5 +27,4 @@ cat <<EOT
 </body></html>
 EOT
 
-echo $decoded
 fi
