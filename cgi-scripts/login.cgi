@@ -7,6 +7,8 @@ if [ -n "$decoded" ] && [[ $decoded =~ username=(.*)\&password=(.*) ]]; then
   username="${BASH_REMATCH[1]}"
   password="${BASH_REMATCH[2]}"
 
+#  psql -h postgres -U postgres -c "SELECT * from Users;"
+
   cat <<EOT
   <html><body>
     <h1>Profile of $username</h1>

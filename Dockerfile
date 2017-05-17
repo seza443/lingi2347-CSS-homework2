@@ -4,6 +4,7 @@ LABEL maintainer "Alexandre Hauet & Tanguy Vaessen"
 # Install Apache2
 RUN apt-get update && apt-get -y install \
     apache2 \
+    postgresql-client \
     && apt-get clean
 
 # Authorize CGI
@@ -15,6 +16,8 @@ RUN chmod +x /usr/lib/cgi-bin/login.cgi
 
 # Copy website
 COPY ./secu.com/ /var/www/html/
+
+ENV PGPASSWORD mysecretpassword
 
 # Command to run Apache
 CMD /usr/sbin/apache2ctl -D FOREGROUND
