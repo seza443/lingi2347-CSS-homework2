@@ -4,7 +4,9 @@ echo ""
 
 decoded=$(printf '%b' "${QUERY_STRING//%/\\x}")
 login_ok=false
+login_attempted=false
 if [ -n "$decoded" ] && [[ $decoded =~ username=(.*)\&password=(.*) ]]; then
+  login_attempted=true
   username="${BASH_REMATCH[1]}"
   password="${BASH_REMATCH[2]}"
 
@@ -15,8 +17,6 @@ if [ -n "$decoded" ] && [[ $decoded =~ username=(.*)\&password=(.*) ]]; then
     login_ok=false
   fi
 fi
-
-echo "$login_ok"
 
 if ( $login_ok ); then
   cat <<EOT
@@ -30,6 +30,11 @@ else
 cat <<EOT
 <html><body>
   <h1>Login form</h1>
+EOT
+if ( $login_attempted ); then
+  echo "<strong style='color:red;'>Invalid username or password</strong>"
+fi
+cat <<EOT
   <form action="/cgi-bin/login.cgi">
     <label>Username: <input type="text" name="username" id="username"></label><br/>
     <label>Password: <input type="password" name="password" id="password"></label><br/>
