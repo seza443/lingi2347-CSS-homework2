@@ -1,4 +1,5 @@
 FROM ubuntu:16.04
+LABEL maintainer "Alexandre Hauet & Tanguy Vaessen"
 
 # Install Apache2
 RUN apt-get update && apt-get -y install \
@@ -15,5 +16,5 @@ RUN chmod +x /usr/lib/cgi-bin/test.cgi
 # Copy website
 COPY ./secu.com/ /var/www/html/
 
-# Command to run
-CMD /usr/sbin/apache2ctl -D FOREGROUND
+# Command to run Apache2
+ENTRYPOINT ["/bin/bash", "/usr/sbin/apache2ctl", "-D FOREGROUND"]
