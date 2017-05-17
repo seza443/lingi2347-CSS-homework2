@@ -16,5 +16,5 @@ RUN chmod +x /usr/lib/cgi-bin/test.cgi
 # Copy website
 COPY ./secu.com/ /var/www/html/
 
-# Command to run Apache2
-ENTRYPOINT ["/bin/bash", "/usr/sbin/apache2ctl", "-D FOREGROUND"]
+# Command to run Apache
+CMD /usr/sbin/apache2ctl -D FOREGROUND
