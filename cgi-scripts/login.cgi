@@ -3,12 +3,22 @@ echo "Content-type: text/html"
 echo ""
 
 decoded=$(printf '%b' "${QUERY_STRING//%/\\x}")
+login_ok=false
 if [ -n "$decoded" ] && [[ $decoded =~ username=(.*)\&password=(.*) ]]; then
   username="${BASH_REMATCH[1]}"
   password="${BASH_REMATCH[2]}"
 
-#  psql -h postgres -U postgres -c "SELECT * from Users;"
+  sql_result=$(PGPASSWORD=mysecretpassword psql -h postgres -U postgres -c "SELECT * from USERSX WHERE username='$username' AND password='$password';")
+  if [[ $sql_result =~ .*1.row.* ]]; then
+    login_ok=true
+  else
+    login_ok=false
+  fi
+fi
 
+echo "$login_ok"
+
+if ( $login_ok ); then
   cat <<EOT
   <html><body>
     <h1>Profile of $username</h1>
