@@ -11,7 +11,7 @@ RUN  a2enmod cgi
 
 # Copy and chmod +x CGI scripts
 COPY ./cgi-scripts/ /usr/lib/cgi-bin/
-RUN chmod +x /usr/lib/cgi-bin/test.cgi
+RUN chmod +x /usr/lib/cgi-bin/login.cgi
 
 # Copy website
 COPY ./secu.com/ /var/www/html/
