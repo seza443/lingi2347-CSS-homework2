@@ -11,10 +11,10 @@ if [ -n "$decoded" ] && [[ $decoded =~ username=(.*)\&password=(.*) ]]; then
   password="${BASH_REMATCH[2]}"
 
   sql_result=$(PGPASSWORD=mysecretpassword psql -h postgres -U postgres -c "SELECT * from USERSX WHERE username='$username' AND password='$password';")
-  if [[ $sql_result =~ .*1.row.* ]]; then
-    login_ok=true
-  else
+  if [[ $sql_result =~ .*0.row.* ]]; then
     login_ok=false
+  else
+    login_ok=true
   fi
 fi
 
