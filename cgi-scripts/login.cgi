@@ -32,7 +32,7 @@ cat <<EOT
   <h1>Login form</h1>
 EOT
 if ( $login_attempted ); then
-  echo "<strong style='color:red;'>Invalid username or password</strong>"
+  echo "<strong style='color:red;'>The login for user $username was not valid</strong>"
 fi
 cat <<EOT
   <form action="/cgi-bin/login.cgi">

